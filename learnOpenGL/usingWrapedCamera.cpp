@@ -24,6 +24,7 @@
 
 // Other includes
 #include "Shader.h"
+#include "Camera.h"
 
 
 // Function prototypes
@@ -41,12 +42,7 @@ const GLuint WIDTH = 800, HEIGHT = 600;
 bool keys[1024];
 
 //摄像机
-glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
-glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
-glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
-GLfloat yaw = -90.0f;	// Yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to the right (due to how Eular angles work) so we initially rotate a bit to the left.
-GLfloat pitch = 0.0f;
-GLfloat fov = 45.0f;
+Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 GLfloat lastX = WIDTH / 2.0;
 GLfloat lastY = HEIGHT / 2.0;
 
@@ -236,12 +232,11 @@ int main()
 
 		// Camera/View transformation
 		glm::mat4 view(1.0f);
-		GLfloat radius = 10.0f;
 		//lookAt三个参数：相机位置，注视点，相机上向量（决定相机方向）
-		view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+		view = camera.GetViewMatrix();//由camera类调用lookAt
 		// Projection 
 		glm::mat4 projection(1.0f);
-		projection = glm::perspective(fov, (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
+		projection = glm::perspective(camera.Zoom, (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
 		// Get the uniform locations
 		GLint modelLoc = glGetUniformLocation(ourShader.Program, "model");
 		GLint viewLoc = glGetUniformLocation(ourShader.Program, "view");
@@ -294,21 +289,20 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 // 摄像机控制
 void do_movement()
 {
-	GLfloat cameraSpeed = 5.0f * deltaTime;//实时检测每帧的时间并根据帧时间设置摄像机速度，保证在不同的机器上移动速度也相同（电脑卡一点也能正常）
+	// Camera controls
 	if (keys[GLFW_KEY_W])
-		cameraPos += cameraSpeed * cameraFront;
+		camera.ProcessKeyboard(FORWARD, deltaTime);
 	if (keys[GLFW_KEY_S])
-		cameraPos -= cameraSpeed * cameraFront;
+		camera.ProcessKeyboard(BACKWARD, deltaTime);
 	if (keys[GLFW_KEY_A])
-		cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;//标准化，保证左右移动和上下移动的速度相同
+		camera.ProcessKeyboard(LEFT, deltaTime);
 	if (keys[GLFW_KEY_D])
-		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+		camera.ProcessKeyboard(RIGHT, deltaTime);
 }
 
 bool firstMouse = true;
 void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 {
-	//在第一次捕捉鼠标时额外设置位置，防止切出游戏再切回来之后视角跳跃
 	if (firstMouse)
 	{
 		lastX = xpos;
@@ -317,37 +311,15 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 	}
 
 	GLfloat xoffset = xpos - lastX;
-	GLfloat yoffset = lastY - ypos; // Reversed since y-coordinates go from bottom to left
+	GLfloat yoffset = lastY - ypos;  // Reversed since y-coordinates go from bottom to left
+
 	lastX = xpos;
 	lastY = ypos;
 
-	GLfloat sensitivity = 0.2;//鼠标灵敏度
-	xoffset *= sensitivity;
-	yoffset *= sensitivity;
-
-	yaw += xoffset;
-	pitch += yoffset;
-
-	// 不允许俯仰角超过90度,如果不限制会发生不符合fps体验的视角跳跃
-	if (pitch > 89.0f)
-		pitch = 89.0f;
-	if (pitch < -89.0f)
-		pitch = -89.0f;
-
-	glm::vec3 front;
-	front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-	front.y = sin(glm::radians(pitch));
-	front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-	cameraFront = glm::normalize(front);
+	camera.ProcessMouseMovement(xoffset, yoffset);
 }
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
-	GLfloat sensitivity = 0.05;//滚轮灵敏度
-	if (fov >= 1.0f && fov <= 45.0f)
-		fov -= sensitivity*yoffset;
-	if (fov <= 1.0f)
-		fov = 1.0f;
-	if (fov >= 45.0f)
-		fov = 45.0f;
+	camera.ProcessMouseScroll(yoffset);
 }
