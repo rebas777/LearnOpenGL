@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="源文件\变换%28transformations%29">
+      <UniqueIdentifier>{230ebecc-52e0-4a94-816d-d62302cf61f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\着色器%28shader%29">
+      <UniqueIdentifier>{26db0937-c583-4b08-a835-de5a65d47b6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\纹理%28texture%29">
+      <UniqueIdentifier>{06391d18-9024-4ea3-a8e6-a41c66b26b8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\坐标系统%28coordinate system%29">
+      <UniqueIdentifier>{381adfbd-a131-45d7-8030-e47af550cef0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\摄像机%28camera%29">
+      <UniqueIdentifier>{0580a005-f5d1-4fb9-9f18-e4b03399ccdc}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="colofulTriangle.cpp">
+      <Filter>源文件\着色器%28shader%29</Filter>
+    </ClCompile>
+    <ClCompile Include="helloTriangle.cpp">
+      <Filter>源文件\着色器%28shader%29</Filter>
+    </ClCompile>
+    <ClCompile Include="colofulTriangleSelfShader.cpp">
+      <Filter>源文件\着色器%28shader%29</Filter>
+    </ClCompile>
+    <ClCompile Include="helloTexture.cpp">
+      <Filter>源文件\纹理%28texture%29</Filter>
+    </ClCompile>
+    <ClCompile Include="helloTrans.cpp">
+      <Filter>源文件\变换%28transformations%29</Filter>
+    </ClCompile>
+    <ClCompile Include="helloCoordSys.cpp">
+      <Filter>源文件\坐标系统%28coordinate system%29</Filter>
+    </ClCompile>
+    <ClCompile Include="helloCamera.cpp">
+      <Filter>源文件\摄像机%28camera%29</Filter>
+    </ClCompile>
+    <ClCompile Include="helloMovableCamera.cpp">
+      <Filter>源文件\摄像机%28camera%29</Filter>
+    </ClCompile>
+    <ClCompile Include="usingWrapedCamera.cpp">
+      <Filter>源文件\摄像机%28camera%29</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Shader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
