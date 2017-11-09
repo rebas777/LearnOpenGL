@@ -120,6 +120,7 @@
     <ClCompile Include="colofulTriangle.cpp" />
     <ClCompile Include="colofulTriangleSelfShader.cpp" />
     <ClCompile Include="helloCamera.cpp" />
+    <ClCompile Include="helloColor.cpp" />
     <ClCompile Include="helloCoordSys.cpp" />
     <ClCompile Include="helloMovableCamera.cpp" />
     <ClCompile Include="helloTexture.cpp" />

@@ -28,6 +28,9 @@
     <Filter Include="源文件\摄像机%28camera%29">
       <UniqueIdentifier>{0580a005-f5d1-4fb9-9f18-e4b03399ccdc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\颜色和光照%28color&amp;light%29">
+      <UniqueIdentifier>{cde01ee0-0ab6-4778-b314-e02fd522c30c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="colofulTriangle.cpp">
@@ -56,6 +59,9 @@
     </ClCompile>
     <ClCompile Include="usingWrapedCamera.cpp">
       <Filter>源文件\摄像机%28camera%29</Filter>
+    </ClCompile>
+    <ClCompile Include="helloColor.cpp">
+      <Filter>源文件\颜色和光照%28color&amp;light%29</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
